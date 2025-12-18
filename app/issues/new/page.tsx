@@ -11,6 +11,7 @@ import { useState } from 'react';
 import z from 'zod';
 import { issueSchema } from '../../validationSchemas';
 import ErrorMessage from '@/app/components/ErrorMessage';
+import { on } from 'events';
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 type IssueForm = z.infer<typeof issueSchema>;
@@ -20,6 +21,20 @@ const NewIssuePage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { register, control, handleSubmit, formState: { errors } } = useForm<IssueForm>({ resolver: zodResolver(issueSchema) });
+  
+  const onSubmit = handleSubmit(async (data) => { 
+          try {
+            setIsSubmitting(true);
+            await axios.post('/api/issues', data); 
+            router.push('/issues');          
+          } 
+          catch (error) {
+            setIsSubmitting(false);
+            setError('Error occurred');
+          }
+          setIsSubmitting(false);
+        });
+
   return (
     <div className='max-w-2xl'>
       <h1 className='mb-5 text-2xl font-bold'>Create New Issue</h1>
@@ -34,18 +49,7 @@ const NewIssuePage = () => {
       </Callout.Root>
       }
       <form className='space-y-3' 
-        onSubmit={handleSubmit(async (data) => { 
-          try {
-            setIsSubmitting(true);
-            await axios.post('/api/issues', data); 
-            router.push('/issues');          
-          } 
-          catch (error) {
-            setIsSubmitting(false);
-            setError('Error occurred');
-          }
-          setIsSubmitting(false);
-        })}
+        onSubmit={onSubmit}
       >        
         <Box>
           <TextField.Root size="3" placeholder="Title" {...register("title")} />
