@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import z from 'zod';
 import { issueSchema } from '../../validationSchemas';
+import ErrorMessage from '@/app/components/ErrorMessage';
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 type IssueForm = z.infer<typeof issueSchema>;
@@ -44,14 +45,18 @@ const NewIssuePage = () => {
       >        
         <Box>
           <TextField.Root size="3" placeholder="Title" {...register("title")} />
-        </Box>
-        {errors.title && <Text className='text-red-500 text-sm' as='p'>{errors.title.message}</Text>}
+        </Box>        
+          <ErrorMessage>
+            {errors.title?.message}
+          </ErrorMessage>        
         <Controller
           name="description"
           control={control}
           render={({ field }) => <SimpleMDE placeholder='Description' {...field} />}
         />
-        {errors.description && <Text className='text-red-500 text-sm' as='p'>{errors.description.message}</Text>}
+        <ErrorMessage>
+          {errors.description?.message}
+        </ErrorMessage>
         <Button>Create Issue</Button>
       </form>
     </div>
