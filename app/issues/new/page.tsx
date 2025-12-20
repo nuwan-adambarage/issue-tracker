@@ -11,7 +11,6 @@ import { useState } from 'react';
 import z from 'zod';
 import { issueSchema } from '../../validationSchemas';
 import ErrorMessage from '@/app/components/ErrorMessage';
-import { on } from 'events';
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 type IssueForm = z.infer<typeof issueSchema>;
