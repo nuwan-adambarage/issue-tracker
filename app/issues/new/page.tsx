@@ -12,7 +12,12 @@ import { Controller, useForm } from "react-hook-form";
 import z from 'zod';
 import { issueSchema } from '../../validationSchemas';
 
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
+//Disable SSR for loading SimpleMDE - markdown editor
+const SimpleMDE = dynamic(() => 
+  import("react-simplemde-editor"), 
+  { ssr: false }
+);
+
 type IssueForm = z.infer<typeof issueSchema>;
 
 const NewIssuePage = () => {
