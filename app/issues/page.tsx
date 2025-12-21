@@ -5,6 +5,7 @@ import IssueStatusBadge from '../components/IssueStatusBadge'
 import delay from 'delay';
 import IssueActions from './IssueActions';
 import Link from 'next/link';
+import CustomLink from '../components/CustomLink';
 
 const IssuesPage = async () => {
 
@@ -27,7 +28,8 @@ const IssuesPage = async () => {
 
             <Table.Row key={issue.id} >
               <Table.Cell>
-                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                <CustomLink href={`/issues/${issue.id}`} label={issue.title} />
+                {/* <Link href={`/issues/${issue.id}`}>{issue.title}</Link> */}
               </Table.Cell>
               <Table.Cell className='hidden md:table-cell'><IssueStatusBadge status={issue.status}/></Table.Cell>
               <Table.Cell className='hidden md:table-cell'>{issue.createdAt.toDateString()}</Table.Cell>
