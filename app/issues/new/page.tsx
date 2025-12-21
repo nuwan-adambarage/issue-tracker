@@ -1,7 +1,6 @@
 'use client';
 import { Box, Button, Callout, Spinner, TextField } from '@radix-ui/themes';
 import dynamic from "next/dynamic";
-// import SimpleMDE from "react-simplemde-editor";
 import ErrorMessage from '@/app/components/ErrorMessage';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
