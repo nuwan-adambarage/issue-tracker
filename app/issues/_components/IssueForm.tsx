@@ -1,8 +1,8 @@
 'use client';
-import { Box, Button, Callout, Spinner, TextField } from '@radix-ui/themes';
-import dynamic from "next/dynamic";
 import ErrorMessage from '@/app/components/ErrorMessage';
+import { Issue } from '@/app/generated/prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Box, Button, Callout, Spinner, TextField } from '@radix-ui/themes';
 import axios from 'axios';
 import "easymde/dist/easymde.min.css";
 import { useRouter } from 'next/navigation';
@@ -10,12 +10,11 @@ import { useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
 import z from 'zod';
 import { issueSchema } from '../../validationSchemas';
-import { Issue } from '@/app/generated/prisma/client';
+import dynamic from 'next/dynamic';
 
-//Disable SSR for loading SimpleMDE - markdown editor
-const SimpleMDE = dynamic(() => 
-  import("react-simplemde-editor"), 
-  { ssr: false }
+const SimpleMDE = dynamic(
+  () => import("react-simplemde-editor"),
+    { ssr: false }
 );
 
 type IssueFormData = z.infer<typeof issueSchema>;
