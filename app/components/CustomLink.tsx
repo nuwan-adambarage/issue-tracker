@@ -9,9 +9,9 @@ interface Props {
 
 const CustomLink = ({ href, label }: Props) => {
   return (
-    <NextLink href={href} passHref legacyBehavior>
-        <RedixLink>{label}</RedixLink>
-    </NextLink>
+    <RedixLink asChild>
+      <NextLink href={href}>{label}</NextLink>
+    </RedixLink>
   )
 }
 
