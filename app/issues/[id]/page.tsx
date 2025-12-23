@@ -1,9 +1,11 @@
 import { prisma } from '@/prisma/client'
-import { Box, Grid } from '@radix-ui/themes'
+import { Box, Card, Flex, Grid } from '@radix-ui/themes'
 import delay from 'delay'
 import { notFound } from 'next/navigation'
 import EditIssueButton from './EditIssueButton'
 import IssueDetails from './IssueDetails'
+import DeleteIssueButton from './DeleteIssueButton'
+import { CardStackIcon } from '@radix-ui/react-icons'
 
 interface Props {
     params: { id: string }
@@ -22,13 +24,14 @@ const IssueDetailPage = async ({ params }: Props) => {
         notFound();
 
   return (
-    <Grid className='max-w-4xl' columns={{ initial: "1", md: "2" }} gap="4">
-        <Box >
+    <Grid className='max-w-4xl' columns={{ initial: "1", md: "5" }} gap="4">
+        <Box style={{ gridColumn: 'span 4' }}>
             <IssueDetails issue={issue} />     
         </Box>
-        <Box>
+        <Flex gap="3" justify="start" style={{ gridColumn: 'span 1' }}>
             <EditIssueButton issueId={issue.id} />
-        </Box>
+            <DeleteIssueButton issueId={issue.id} />
+        </Flex>
     </Grid>
   )
 }
