@@ -28,7 +28,7 @@ const IssueDetailPage = async ({ params }: Props) => {
         <Box style={{ gridColumn: 'span 4' }}>
             <IssueDetails issue={issue} />     
         </Box>
-        <Flex gap="3" justify="start" style={{ gridColumn: 'span 1' }}>
+        <Flex className='gap-3 mt-4 sm:flex-col sm:justify-center' style={{ gridColumn: 'span 1' }}>
             <EditIssueButton issueId={issue.id} />
             <DeleteIssueButton issueId={issue.id} />
         </Flex>
