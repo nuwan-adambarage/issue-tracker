@@ -5,13 +5,15 @@ import { notFound } from 'next/navigation'
 import EditIssueButton from './EditIssueButton'
 import IssueDetails from './IssueDetails'
 import DeleteIssueButton from './DeleteIssueButton'
-import { CardStackIcon } from '@radix-ui/react-icons'
+import { getServerSession } from 'next-auth'
+import authOptions from '@/app/auth/authOptions'
 
 interface Props {
     params: { id: string }
 }
 
 const IssueDetailPage = async ({ params }: Props) => {
+    const session = await getServerSession(authOptions);
     const { id }   = await params;
      if (!id) notFound();
     await delay(500);
@@ -28,10 +30,10 @@ const IssueDetailPage = async ({ params }: Props) => {
         <Box style={{ gridColumn: 'span 4' }}>
             <IssueDetails issue={issue} />     
         </Box>
-        <Flex className='gap-3 mt-4 sm:flex-col sm:justify-center' style={{ gridColumn: 'span 1' }}>
+        {session &&<Flex className='gap-3 mt-4 sm:flex-col sm:justify-center' style={{ gridColumn: 'span 1' }}>
             <EditIssueButton issueId={issue.id} />
             <DeleteIssueButton issueId={issue.id} />
-        </Flex>
+        </Flex>}
     </Grid>
   )
 }
