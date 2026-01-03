@@ -8,6 +8,7 @@ import { Container, Theme } from "@radix-ui/themes";
 
 import NavBar from "./NavBar";
 import AuthProvider from "./auth/Provider";
+import QueryClientProvider from "./QueryClientProvider";
 
 const inter = Inter({
 	subsets: ["latin"],
@@ -40,16 +41,18 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        <AuthProvider>
-          <Theme accentColor="violet" radius="full" appearance="dark">
-            <NavBar />
-            <main className="px-3 py-2.5">
-              <Container>
-                {children}
-              </Container>
-            </main>
-          </Theme>
-        </AuthProvider>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme accentColor="violet" radius="full" appearance="dark">
+              <NavBar />
+              <main className="px-3 py-2.5">
+                <Container>
+                  {children}
+                </Container>
+              </main>
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
