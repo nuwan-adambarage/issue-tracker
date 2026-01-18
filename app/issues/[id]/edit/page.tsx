@@ -3,10 +3,16 @@ import { notFound } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import IssueFormSkeleton from '../../_components/IssueFormSkeleton';
 import IssueForm from '../../_components/IssueForm';
+import { use } from 'react';
 
-
-const EditIssuePage = async ({ params }: { params: { id: string }}) => {
+interface Props {
+    params: Promise<{
+        id: string;
+    }>
+}
+const EditIssuePage = async ({ params }: Props) => {
     const { id } = await params;
+    console.log('Editing issue id:', id);
     if (!id) notFound();
 
     const issue = await prisma.issue.findUnique({
