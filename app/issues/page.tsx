@@ -8,6 +8,7 @@ import { Issue, Status } from "../generated/prisma/client";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 import Pagination from "../components/Pagination";
 import IssueTable, { columnNames } from "./IssueTable";
+import { Metadata } from "next";
 
 interface Props {
   searchParams: Promise<{
@@ -51,6 +52,36 @@ const IssuesPage = async ({ searchParams }: Props) => {
       <Pagination itemCount={issueCount} pageSize={pageSize} currentPage={pageNumber} />
     </Flex>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - List of issues",
+  description: "View the list of issues",
+
+  openGraph: {
+    title: "Issue Tracker - Dashboard",
+    description: "View a summary of project issues",
+    url: "https://your-site.com",
+    siteName: "Issue Tracker",
+    images: [
+      {
+        url: "/public/summary_large_image.png",
+        width: 1200,
+        height: 630,
+        alt: "Issue Tracker Dashboard",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Issue Tracker - Dashboard",
+    description: "View a summary of project issues",
+    images: ["/public/summary_large_image.png"],
+    creator: "@yourhandle",
+  },
 };
 
 export default IssuesPage;

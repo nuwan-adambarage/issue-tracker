@@ -1,16 +1,13 @@
-import IssueSummary from "./IssueSummary";
-import { prisma } from "@/prisma/client";
-import LatestIssues from "./LatestIssues";
-import IssueChart from "./IssueChart";
-import { Flex, Grid } from "@radix-ui/themes";
-import { Metadata } from "next";
+import { prisma } from '@/prisma/client';
+import { Flex, Grid } from '@radix-ui/themes';
+import IssueChart from '../IssueChart';
+import IssueSummary from '../IssueSummary';
+import LatestIssues from '../LatestIssues';
+import { Metadata } from 'next';
 
-interface Props {
-  searchParams: Promise<{
-    page: string;
-  }>;
-}
-export default async function Home () {
+type Props = {}
+
+const Dashboard = async (props: Props) => {
   const open = await prisma.issue.count({where: { status: 'OPEN'}});
   const inProgress = await prisma.issue.count({where: { status: 'IN_PROGRESS'}});
   const closed = await prisma.issue.count({where: { status: 'CLOSED'}});
@@ -57,3 +54,4 @@ export const metadata: Metadata = {
   },
 };
 
+export default Dashboard
