@@ -18,12 +18,6 @@ interface Props {
   }>;
 }
 
-// const columns: { label: string; value: keyof Issue; className?: string }[] = [
-//   { label: "Title", value: "title" },
-//   { label: "Status", value: "status", className: "hidden md:table-cell" },
-//   { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
-// ];
-
 const IssuesPage = async ({ searchParams }: Props) => {
   const params = await searchParams;
   const { status, orderBy, page } = params;
