@@ -21,7 +21,7 @@ model Issue {
   status         Status   @default(OPEN)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  assignToUserId String?  @db.VarChar(255)
+  assignToUserId String?
   assignToUser   User?    @relation(fields: [assignToUserId], references: [id])
 }
 
